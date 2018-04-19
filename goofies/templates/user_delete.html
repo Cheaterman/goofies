@@ -1,0 +1,7 @@
+{% extends 'base' %}
+{% block title %}Delete user{% endblock %}
+{% block content %}
+Are you sure you want to delete user "{{ user.first_name }} {{ user.last_name }}"?<br>
+<a href="{{ url_for('users') }}">No</a>
+<a href="{{ url_for('delete_user', id=user.id) }}">Yes</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base' %}
+{% block title %}Item list{% endblock %}
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+{%- for item in items %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ '%.2f' % item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+                <a href="{{ url_for('delete_item', id=item.id, confirm=False) }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+{%- endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('add_item') }}">Add item</a>
+{% endblock %}

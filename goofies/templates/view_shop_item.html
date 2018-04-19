@@ -1,0 +1,6 @@
+{% extends 'base' %}
+{% block title %}{{ item.name }} - View shop item{% endblock %}
+{% block content -%}
+{{ item.name }} - {{ '%.2f' % item.price }}€ - {{ item.quantity }}x remaining<br>
+<a href="{{ url_for('pay', id=item.id) }}">Buy</a>
+{%- endblock %}

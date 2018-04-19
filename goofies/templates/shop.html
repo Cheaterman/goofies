@@ -1,0 +1,14 @@
+{% extends 'base' %}
+{% from 'form.html' import render_form %}
+{% block title %}Shop{% endblock %}
+{% block content %}
+<ul>
+{%- for item in items %}
+    <li>
+        <a href="{{ url_for('view_shop_item', id=item.id) }}">
+            {{ item.name }}
+        </a> - {{ item.quantity }} remaining
+    </li>
+{%- endfor %}
+</ul>
+{% endblock %}

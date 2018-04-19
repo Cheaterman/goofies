@@ -1,0 +1,16 @@
+{% extends 'base' %}
+{% block title %}Index{% endblock %}
+{% block content %}
+{%- if not current_user.is_authenticated %}
+<p>
+    Hi and thanks for visiting us!<br>
+    To buy our stuff, first <a href="{{ url_for('register') }}">register</a>, then <a href="{{ url_for('login') }}">log in</a>!
+</p>
+{%- else %}
+<p>
+    You are: {{ current_user.first_name }} {{ current_user.last_name }}
+    {%- if current_user.admin %}
+    {%- endif %}
+</p>
+{%- endif -%}
+{% endblock %}

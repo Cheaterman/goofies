@@ -1,0 +1,6 @@
+flask
+flask-emails
+flask-sqlalchemy
+flask-login
+flask-wtf
+paypalrestsdk

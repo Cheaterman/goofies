@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+    </head>
+    <body>
+        <h1>
+            <a href="{{ url_for('index') }}">{{ config.SITE_NAME }}</a>
+            {{- ' - ' + config.SITE_DESCRIPTION if config.SITE_DESCRIPTION else '' }}
+        </h1>
+        <h3>Activate your account</h3>
+        <p>
+            Hi {{ user.first_name }}, thanks for registering to {{ config.SITE_NAME }}!<br>
+            You can activate your account by clicking <a href="{{ url_for('activate', key=user.activation_key, _external=True) }}">here</a>.<br>
+            See you soon!<br>
+            <br>
+            The staff at {{ config.SITE_NAME }}
+        </p>
+    </body>
+</html>

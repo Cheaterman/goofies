@@ -1,0 +1,69 @@
+{% macro render_form(form) %}
+    <style>
+        form {
+            display: inline-block;
+        }
+
+        form input {
+            float: right;
+            margin: 0 0 0 20px;
+            height: 2em;
+            min-width: 200px;
+        }
+
+        form input[type="checkbox"] {
+            min-width: 0;
+        }
+
+        form input.submit {
+            float: none;
+            margin: 0 auto;
+            min-width: 0;
+        }
+
+        form label, form .required_help {
+            display: block;
+            clear: both;
+            line-height: 2em;
+        }
+    </style>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {%- set ns = namespace(any_required=False, all_required=True) -%}
+        {%
+            for field in form
+            if field.widget.input_type != 'hidden'
+            and field.type != 'SubmitField'
+        %}
+        {{ render_field(field) }}
+        {%- if field.flags.required %}
+        {%- set ns.any_required = True %}
+        {%- else -%}
+        {%- set ns.all_required = False %}
+        {%- endif -%}
+        {% endfor %}
+        {%- if ns.any_required and not ns.all_required %}
+        <span class="required_help">Fields marked with an asterisk (*) are required.</span>
+        {%- endif %}
+        {%- for field in form if field.type == 'SubmitField' %}
+        {{ render_field(field) }}
+        {%- endfor %}
+    </form>
+{%- endmacro %}
+
+{% macro render_field(field) %}
+    {%- if field.type == 'SubmitField' -%}
+    {{ field(class_='submit', **kwargs)|safe }}
+    {%- elif field.widget.input_type == 'hidden' -%}
+    {{ field(**kwargs)|safe }}
+    {%- else -%}
+    <label for="{{ field.label.field_id }}">{{ field.label.text }}{{ '*' if field.flags.required else '' }}: {{ field(required=field.flags.required, **kwargs)|safe }}</label>
+    {%- endif -%}
+    {%- if field.errors %}
+    <ul>
+    {%- for error in field.errors %}
+        <li>{{ error }}</li>
+    {% endfor -%}
+    </ul>
+    {% endif -%}
+{% endmacro %}
