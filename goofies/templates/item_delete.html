@@ -2,6 +2,12 @@
 {% block title %}Delete item{% endblock %}
 {% block content %}
 Are you sure you want to delete item "{{ item.name }}"?<br>
-<a href="{{ url_for('items') }}">No</a>
-<a href="{{ url_for('delete_item', id=item.id) }}">Yes</a>
+<a
+    href="{{ url_for('items') }}"
+    class="btn btn-secondary"
+>No</a>
+<a
+    href="{{ url_for('delete_item', id=item.id) }}"
+    class="btn btn-secondary"
+>Yes</a>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base' %}
 {% block title %}Item list{% endblock %}
 {% block content %}
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>ID</th>
@@ -17,10 +17,10 @@
             <td>{{ item.name }}</td>
             <td>{{ '%.2f' % item.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>
+            <td style="white-space: nowrap">
                 <a
-                    class="btn btn-secondary"
                     href="{{ url_for('delete_item', id=item.id, confirm=False) }}"
+                    class="btn btn-secondary"
                 >
                     Delete
                 </a>
@@ -29,5 +29,8 @@
 {%- endfor %}
     </tbody>
 </table>
-<a class="btn btn-primary" href="{{ url_for('add_item') }}">Add item</a>
+<a
+    href="{{ url_for('add_item') }}"
+    class="btn btn-primary"
+>Add item</a>
 {% endblock %}

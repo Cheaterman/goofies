@@ -2,6 +2,12 @@
 {% block title %}Delete user{% endblock %}
 {% block content %}
 Are you sure you want to delete user "{{ user.first_name }} {{ user.last_name }}"?<br>
-<a href="{{ url_for('users') }}">No</a>
-<a href="{{ url_for('delete_user', id=user.id) }}">Yes</a>
+<a
+    href="{{ url_for('users') }}"
+    class="btn btn-secondary"
+>No</a>
+<a
+    href="{{ url_for('delete_user', id=user.id) }}"
+    class="btn btn-secondary"
+>Yes</a>
 {% endblock %}
