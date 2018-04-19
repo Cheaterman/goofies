@@ -18,7 +18,10 @@
             <td>{{ '%.2f' % item.price }}</td>
             <td>{{ item.quantity }}</td>
             <td>
-                <a href="{{ url_for('delete_item', id=item.id, confirm=False) }}">
+                <a
+                    class="btn btn-secondary"
+                    href="{{ url_for('delete_item', id=item.id, confirm=False) }}"
+                >
                     Delete
                 </a>
             </td>
@@ -26,5 +29,5 @@
 {%- endfor %}
     </tbody>
 </table>
-<a href="{{ url_for('add_item') }}">Add item</a>
+<a class="btn btn-primary" href="{{ url_for('add_item') }}">Add item</a>
 {% endblock %}
