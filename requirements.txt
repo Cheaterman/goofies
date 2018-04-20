@@ -3,4 +3,5 @@ flask-emails
 flask-sqlalchemy
 flask-login
 flask-wtf
+flask-migrate
 paypalrestsdk
