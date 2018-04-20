@@ -1,14 +1,16 @@
-<ul class="menu">
-    <li><a href="{{ url_for('index') }}">Index</a></li>
-    <li><a href="{{ url_for('shop') }}">Shop</a></li>
-    {%- if not current_user.is_authenticated %}
-    <li><a href="{{ url_for('register') }}">Register</a></li>
-    <li><a href="{{ url_for('login') }}">Log in</a></li>
-    {%- else %}
-    {%- if current_user.admin %}
-    <li><a href="{{ url_for('users') }}">View users</a></li>
-    <li><a href="{{ url_for('items') }}">View items</a></li>
-    {%- endif %}
-    <li><a href="{{ url_for('logout') }}">Log out</a></li>
-    {%- endif %}
-</ul>
+<nav class="menu">
+    <ul>
+        <li><a href="{{ url_for('index') }}">Index</a></li>
+        <li><a href="{{ url_for('shop') }}">Shop</a></li>
+        {%- if not current_user.is_authenticated %}
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('login') }}">Log in</a></li>
+        {%- else %}
+        {%- if current_user.admin %}
+        <li><a href="{{ url_for('users') }}">View users</a></li>
+        <li><a href="{{ url_for('items') }}">View items</a></li>
+        {%- endif %}
+        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+        {%- endif %}
+    </ul>
+</nav>
