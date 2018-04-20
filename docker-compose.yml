@@ -1,0 +1,28 @@
+version: '3'
+
+networks:
+    goofies:
+
+services:
+    goofies:
+        image: goofies/uwsgi
+        restart: 'always'
+        networks:
+            - goofies
+        ports:
+          - '127.0.0.1:5000:5000'
+        volumes:
+            - '../goofies:/code'
+        environment:
+            WSGI_MODULE: goofies:app
+
+    goofies_db:
+        image: postgres
+        restart: 'always'
+        networks:
+            - goofies
+        volumes:
+          - '../goofies/postgres:/var/lib/postgresql/data'
+        environment:
+          POSTGRES_USER: goofies
+          POSTGRES_PASSWORD: YOUR DB PASSWORD

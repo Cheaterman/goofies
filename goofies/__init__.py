@@ -19,7 +19,7 @@ app.config.update({
     'EMAIL_HOST_PASSWORD': 'YOUR PASSWORD',
     'EMAIL_PORT': 587,
     'EMAIL_TLS': True,
-    'SQLALCHEMY_DATABASE_URI': 'sqlite:///goofies.db',
+    'SQLALCHEMY_DATABASE_URI': 'postgresql://goofies:YOUR DB PASSWORD@goofies_db/goofies',
 })
 app.secret_key = 'YOUR SECRET KEY'
 db = SQLAlchemy(app)

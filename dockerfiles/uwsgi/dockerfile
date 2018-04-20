@@ -1,0 +1,11 @@
+FROM fcoelho/uwsgi
+
+RUN apt-get update \
+    && apt-get install -y libxml2-dev libxslt1-dev \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/*
+
+ADD run.sh /run.sh
+
+CMD []
+ENTRYPOINT ["/run.sh"]
