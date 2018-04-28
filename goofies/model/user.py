@@ -13,6 +13,7 @@ class User(db.Model):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(128), nullable=False)
     last_name = Column(String(128), nullable=False)
+    phone = Column(String(128))
     email = Column(String(128), nullable=False, unique=True)
     company = Column(String(128))
     password = Column(String(64), nullable=False)

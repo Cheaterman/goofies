@@ -1,4 +1,5 @@
-from flask import abort, flash, redirect, request, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
+from flask_emails import Message
 from flask_login import current_user, login_required
 from paypalrestsdk import Payment
 from .. import app, db
@@ -98,15 +99,43 @@ def execute(id):
         flash('This payment does not seem to match your order!')
         return redirect(url_for('shop'))
 
-    if payment.execute(dict(payer_id=request.args.get('PayerID'))):
-        order.paid = True
-        order.item.quantity -= 1
-        db.session.commit()
-
-        flash('Your order was processed successfully. Thank you!')
-        return redirect(url_for('shop'))
-    else:
+    if not payment.execute(dict(payer_id=request.args.get('PayerID'))):
         flash('An error occured while processing your order: {}'.format(
             payment.error
         ))
         return redirect(url_for('shop'))
+
+    order.paid = True
+    order.item.quantity -= 1
+    db.session.commit()
+
+    message = Message(
+        html=render_template(
+            'order_receipt.html',
+            order=order,
+            item=order.item,
+            user=order.buyer,
+        ),
+        subject='Receipt for your purchase - {}'.format(
+            app.config['SITE_NAME']
+        ),
+        mail_from=(
+            app.config['SITE_NAME'],
+            'noreply@%s' % app.config['SUPPORT_EMAIL'].split('@')[1],
+        ),
+    )
+    user = order.buyer
+    response = message.send(to=(
+        '{} {}'.format(user.first_name, user.last_name),
+        user.email,
+    ))
+
+    flash(
+        'Your order was processed successfully{}. Thank you!'.format(
+            '' if response.status_code == 250 else (
+                ', but your purchase receipt could not be sent. '
+                'Contact us at {} in order to get your receipt.'
+            ).format(app.config['SUPPORT_EMAIL'])
+        )
+    )
+    return redirect(url_for('shop'))

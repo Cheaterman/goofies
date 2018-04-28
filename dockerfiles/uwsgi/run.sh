@@ -19,7 +19,7 @@ then
     cd /code && . /env/bin/activate && FLASK_APP=${WSGI_MODULE%%:*}/__init__.py flask shell
 elif [[ "$1" == "bash" ]]
 then
-    cd /code && FLASK_APP=${WSGI_MODULE%%:*}/__init__.py bash
+    cd /code && . /env/bin/activate && FLASK_APP=${WSGI_MODULE%%:*}/__init__.py bash
 else
     cd /code && /env/bin/uwsgi --virtualenv /env --chdir /code -w ${WSGI_MODULE:-wsgi:application} --uwsgi-socket 0.0.0.0:5000
 fi

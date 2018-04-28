@@ -1,8 +1,9 @@
-from wtforms import BooleanField
-from .register import RegisterForm, unique_email
+from wtforms import BooleanField, PasswordField
+from .purchase import PurchaseForm, unique_email
 
 
 class UserEditForm(RegisterForm):
+    password = PasswordField('Password')
     active = BooleanField('Active')
     admin = BooleanField('Admin')
 
@@ -10,4 +11,8 @@ class UserEditForm(RegisterForm):
         validators = self.email.kwargs['validators']
         if unique_email in validators:
             validators.remove(unique_email)
-        return super(UserEditForm, self).__init__(*args, **kwargs)
+
+        super(UserEditForm, self).__init__(*args, **kwargs)
+
+        del self.confirm_email
+        self.submit.label.text = 'Submit'

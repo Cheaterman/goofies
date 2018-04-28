@@ -9,8 +9,6 @@
 {%- else %}
 <p>
     You are: {{ current_user.first_name }} {{ current_user.last_name }}
-    {%- if current_user.admin %}
-    {%- endif %}
 </p>
 {%- endif -%}
 {% endblock %}

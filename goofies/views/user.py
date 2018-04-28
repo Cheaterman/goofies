@@ -23,6 +23,9 @@ def edit_user(id):
             if key not in dir(user):
                 del data[key]
 
+        if not data['password']:
+            del data['password']
+
         for key, value in data.items():
             setattr(user, key, value)
 

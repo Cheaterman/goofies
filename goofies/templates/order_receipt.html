@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+    </head>
+    <body>
+        <h1>
+            <a href="{{ url_for('index', _external=True) }}">{{ config.SITE_NAME }}</a>
+            {{- ' - ' + config.SITE_DESCRIPTION if config.SITE_DESCRIPTION else '' }}
+        </h1>
+        <h3>Receipt for your purchase</h3>
+        <p>
+            Hi {{ user.first_name }}, thanks for your purchase on {{ config.SITE_NAME }}!<br>
+            This receipt acknowledges your purchase of "{{ item.name }}" for a cost of {{ order.amount }}€.<br>
+            The key linked to this order is {{ order.payment_id }}.<br>
+            Thanks again and see you soon!<br>
+            <br>
+            The staff at {{ config.SITE_NAME }}
+        </p>
+    </body>
+</html>
