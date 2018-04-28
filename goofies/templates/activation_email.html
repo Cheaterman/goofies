@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>
-            <a href="{{ url_for('index') }}">{{ config.SITE_NAME }}</a>
+            <a href="{{ url_for('index', _external=True) }}">{{ config.SITE_NAME }}</a>
             {{- ' - ' + config.SITE_DESCRIPTION if config.SITE_DESCRIPTION else '' }}
         </h1>
         <h3>Activate your account</h3>
