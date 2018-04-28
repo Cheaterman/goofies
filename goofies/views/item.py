@@ -44,6 +44,7 @@ def add_item():
 
 @app.route('/item/delete/<int:id>', defaults=dict(confirm=False))
 @app.route('/item/delete/<int:id>/confirm', defaults=dict(confirm=True))
+@admin_required
 def delete_item(id, confirm=False):
     item = Item.query.get_or_404(id)
     if confirm:

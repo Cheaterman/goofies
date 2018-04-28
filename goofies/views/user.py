@@ -12,6 +12,7 @@ def users():
 
 
 @app.route('/user/<int:id>/edit', methods=('GET', 'POST'))
+@admin_required
 def edit_user(id):
     user = User.query.get_or_404(id)
     form = UserEditForm(obj=user)
@@ -36,6 +37,7 @@ def edit_user(id):
 
 @app.route('/user/<int:id>/delete', defaults=dict(confirm=False))
 @app.route('/user/<int:id>/delete/confirm', defaults=dict(confirm=True))
+@admin_required
 def delete_user(id, confirm=False):
     user = User.query.get_or_404(id)
     if confirm:
